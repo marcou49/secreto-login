@@ -5,6 +5,15 @@
 {% block content %}
 <p>{{ message }}</p>
 
-<p><a href="/">Back to guessing</a></p>
+{% if palmares %}
+
+<div class="alert alert-success" role="alert">
+ {{ palmares }}
+</div>
+
+{% endif %}
+
+<p><a href="/">Volver a jugar </a></p>
+<p><a href="/logout">Desconectarse </a></p>
 
 {% endblock content %}

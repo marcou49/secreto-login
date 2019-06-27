@@ -11,3 +11,5 @@ class User(db.Model):
     secret_number = db.Column(db.Integer)  # must NOT be unique across user objects
     password = db.Column(db.String)
     session_token = db.Column(db.String)
+    intentos = db.Column(db.Integer)
+    fecha = db.Column(db.String)
