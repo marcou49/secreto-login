@@ -1,0 +1,59 @@
+
+
+
+/* index */
+
+.logo {
+    width: 216px;
+    height: 56px;
+    background: url(https://richardcasar.es/wp-content/uploads/2019/03/logo-richardcasares.png) no-repeat;
+        background-size: auto;
+    text-indent: -999999px;
+    margin: 10px 0px;
+    display: block;
+    max-width: 100%;
+    background-size: 100%;
+}
+
+
+
+/* facebook */
+
+.fb-profile img.fb-image-lg{
+    z-index: 0;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.fb-image-profile
+{
+    margin: -90px 10px 0px 50px;
+    z-index: 9;
+    width: 20%;
+}
+
+
+
+/* responsive */
+
+
+@media (max-width:768px)
+{
+
+.fb-profile-text>h1{
+    font-weight: 700;
+    font-size:16px;
+}
+
+.fb-image-profile
+{
+    margin: -45px 10px 0px 25px;
+    z-index: 9;
+    width: 20%;
+}
+}
+
+@media (max-width:767px) {
+.my-0.logo { margin-bottom:30px !important }
+}
+
