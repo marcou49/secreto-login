@@ -2,14 +2,17 @@
 
 {% block content %}
 
+<h1>Bienvenido al juego del número secreto</h1>
+
 {% if user and user.secret_number %}
     <form method="post" action="/result">
-        <input type="text" name="guess" placeholder="Tu número">
-        <br>
-
-        <button type="submit">Comprobar</button>
+        <input type="text" name="guess" placeholder="Tu número"> <button type="submit">Comprobar</button>
     </form>
+
 {% else %}
+
+<p>Antes que nada date de alta</p>
+
     <form method="post" action="/login">
         <input type="text" name="user-name" placeholder="Tu nombre"><br>
         <input type="email" name="user-email" placeholder="Tu email"><br>
