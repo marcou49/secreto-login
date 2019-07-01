@@ -46,6 +46,10 @@ def login():
         db.add(user)
         db.commit()
 
+    if user and user.deleted == 1:
+        # create a User object
+        return "Te diste de baja amigo, date de alta con otro usaurio / Contraseña"
+
 
     # check if password is incorrect
     if hashed_password != user.password:
@@ -218,7 +222,10 @@ def delete_profile():
         db.add(user)
         db.commit()
 
-    return redirect(url_for("index"))
+    response = make_response(redirect(url_for('index')))
+    response.set_cookie("session_token", expires=0)
+
+    return response
 
 @app.route("/usuarios")
 
