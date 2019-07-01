@@ -1,6 +1,7 @@
 import hashlib
 import random
 import uuid
+import datetime
 
 from flask import Flask, render_template, request, make_response, redirect, url_for
 from models import User, db
@@ -82,20 +83,24 @@ def result():
 
 
         # create a new random secret number
-        new_secret = random.randint(1, 30)
+
 
         #guardamos los intentos
         new_intentos = int(intentos) + 1
         palmares = "Acertaste en {0} intentos".format(str(new_intentos))
-        user.intentos = new_intentos
-
-        # update the user's secret number
+        fecha = datetime.date.today()
+        hoy = fecha.strftime('%d-%b-%Y')
+        new_secret = random.randint(1, 30)
         user.secret_number = new_secret
+        user.fecha = hoy
 
-        # update the user object in a database
+        # si el usuario mejor su resultado o es su primer intento guardamos los intentos
+        if user.intentos > new_intentos or user.intentos==0:
+
+            user.intentos = new_intentos
+
         db.add(user)
         db.commit()
-
         intentos_cero = 0
 
         response = make_response(render_template("result.html", message=message, palmares=palmares))
@@ -134,11 +139,101 @@ def logout():
     response.set_cookie("intentos", expires=0)
     response.set_cookie("session_token", expires=0)
 
-
-
-
     return response
 
+@app.route("/profile")
+def profile():
+
+    session_token = request.cookies.get("session_token")
+    user = db.query(User).filter_by(session_token=session_token).first()
+
+    if user:
+        return render_template("profile.html", user=user)
+    else:
+        return redirect(url_for("index"))
+
+
+@app.route("/edit_profile", methods=["POST", "GET"])
+
+def edit_profile():
+
+        session_token = request.cookies.get("session_token")
+
+        # get user from the database based on her/his email address
+        user = db.query(User).filter_by(session_token=session_token, deleted=False).first()
+
+        if request.method == "GET":
+
+            if user:  # if user is found
+
+                return render_template("edit_profile.html", user=user)
+
+            else:
+
+                return redirect(url_for("index"))
+
+        elif request.method == "POST":
+            name = request.form.get("profile-name")
+            email = request.form.get("profile-email")
+            old_password = request.form.get("old-password")
+            new_password = request.form.get("new-password")
+
+            if old_password and new_password:
+                hashed_old_password = hashlib.sha256(old_password.encode()).hexdigest()  # hash de la antigua contraseña
+                hashed_new_password = hashlib.sha256(new_password.encode()).hexdigest()  # hash de la nueva
+
+                # comparamos
+                if hashed_old_password == user.password:
+                    # si es correcto, salvamos en BBDD
+                    user.password = hashed_new_password
+                else:
+                    # sino, devolvemos error
+                    return "Te has equivocado con tu antigua contraseña socio"
+
+            # actualizamos usuario (nombre y email) en BBDD
+            user.name = name
+            user.email = email
+
+            # guardamos en BBDD
+            db.add(user)
+            db.commit()
+
+            return redirect(url_for("profile"))
+
+
+@app.route("/delete_profile", methods=["GET", "POST"])
+
+def delete_profile():
+    session_token = request.cookies.get("session_token")
+    user = db.query(User).filter_by(session_token=session_token, deleted=False).first()
+
+    if request.method == "GET":
+        if user:
+            return render_template("delete_profile.html", user=user)
+        else:
+            return redirect(url_for("index"))
+    elif request.method == "POST":
+        # fake delete
+        user.deleted = True
+        db.add(user)
+        db.commit()
+
+    return redirect(url_for("index"))
+
+@app.route("/usuarios")
+
+def usuarios():
+
+    users = db.query(User).filter_by(deleted=False).all() #todos los usuarios activos y q hayan jugado (intentos>0)
+    new_score_list = sorted(users, key=lambda k: k.intentos)
+    return render_template("usuarios.html", users=new_score_list)
+
+@app.route("/usuario/<user_id>")
+
+def user_details(user_id):
+    user = db.query(User).get(int(user_id))
+
+    return render_template("user_details.html", user=user)
 
 if __name__ == '__main__':
     app.run()

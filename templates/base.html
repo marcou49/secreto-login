@@ -23,16 +23,14 @@
                 <a class="nav-link  {{ 'active' if active_page == 'inicio' else '' }}" href="/">Inicio</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ 'active' if active_page == 'sobre_mi' else '' }}" href="/about/">Sobre mí</a>
+                <a class="nav-link {{ 'active' if active_page == 'sobre_mi' else '' }}" href="/profile">Perfíl</a>
             </li>
-            <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Portfolio</a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="/portfolio/google/">Google</a>
-              <a class="dropdown-item" href="/portfolio/facebook/">Facebook</a>
-              <a class="dropdown-item" href="/portfolio/peluqueria/">Pelu</a>
-            </div>
-          </li>
+
+            <li class="nav-item">
+                <a class="nav-link {{ 'active' if active_page == 'sobre_mi' else '' }}" href="/usuarios">Clasificación</a>
+            </li>
+
+
         </ul>
 
     </div>

@@ -13,3 +13,4 @@ class User(db.Model):
     session_token = db.Column(db.String)
     intentos = db.Column(db.Integer)
     fecha = db.Column(db.String)
+    deleted = db.Column(db.Boolean, default=False)
