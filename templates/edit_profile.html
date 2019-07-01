@@ -4,32 +4,31 @@
 {% block title %}Edit profile{% endblock title %}
 
 {% block content %}
-<h3>Edit your profile</h3>
+<h3>Modificar perfíl</h3>
 
 <form method="post">
     <p>
-        <strong>Your name:</strong>
+        <strong>Tu nombre:</strong>
         <input type="text" value="{{ user.name }}" name="profile-name">
     </p>
 
     <p>
-        <strong>Your email:</strong>
+        <strong>Tu correo:</strong>
         <input type="email" value="{{ user.email }}" name="profile-email">
     </p>
 
-    <h4>Password update (optional)</h4>
-    <p>If you'd like to update the password, fill out the input fields below. If not, leave them empty.</p>
+    <h4>¿Modificar tu contraseña?</h4>
 
     <p>
-        <strong>Old password:</strong>
+        <strong>Tu antigua contraseña</strong>
         <input type="password" name="old-password">
     </p>
 
     <p>
-        <strong>New password:</strong>
+        <strong>Tu nueva contraseña</strong>
         <input type="password" name="new-password">
     </p>
 
-    <button>Submit</button>
+    <button>Modificar</button>
 </form>
 {% endblock content %}
