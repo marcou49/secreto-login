@@ -47,7 +47,7 @@ def login():
         db.commit()
 
     if user and user.deleted == 1:
-        # create a User object
+
         return "Te diste de baja amigo, date de alta con otro usaurio / Contraseña"
 
 
