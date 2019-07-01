@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<p>Usuario: {{ user.name }}</p>
+<p>email: {{ user.email }}</p>
+<p>Tu mejor puntuación: {{ user.intentos }}</p>
+
+
+<a href="/edit_profile">Editar Perfíl</a> | <a href="/delete_profile">Eliminar Perfíl</a> | <a href="/logout">Desconectarse </a>
+
+
+{% endblock content %}

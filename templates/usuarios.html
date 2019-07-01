@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<p><strong>Así está la clasificación ahora mismo</strong></p>
+
+<table class="table table-striped  table-sm">
+  <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Intentos</th>
+      <th scope="col">Fecha</th>
+    </tr>
+  </thead>
+  <tbody>
+
+{% for user in users %}
+
+<tr>
+  <td><a href="/usuario/{{ user.id }}">{{ user.name }}</a></td>
+  <td> {{ user.intentos }}</td>
+  <td> {{ user.fecha }}</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+</table>
+
+
+{% endblock content %}
