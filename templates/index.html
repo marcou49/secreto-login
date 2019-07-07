@@ -2,20 +2,31 @@
 
 {% block content %}
 
-<h1>Bienvenido al juego del número secreto</h1>
+<h1>Bienvenido tu rincon secreto</h1>
 
-{% if user and user.secret_number %}
-    <form method="post" action="/result">
-        <input type="text" name="guess" placeholder="Tu número"> <button type="submit">Comprobar</button>
-    </form>
+{% if user %}
+
+<p>{{user.ciudad}} </p>
+
+<p>{{user.tiempo}} </p>
+
+<p>la hora</p>
+
+
+<a href="/cambiar-ciudad">¿Ya no vives en {{user.ciudad}} ?</a>
+
+<p>tienes mensajes pendientes</p>
+
+<p>Consultar mensajes</p>
 
 {% else %}
 
-<p>Antes que nada, regístrate</p>
+<p>Antes que nada, regístrate uuu</p>
 
     <form method="post" action="/login">
         <input type="text" name="user-name" placeholder="Tu nombre"><br>
         <input type="email" name="user-email" placeholder="Tu email"><br>
+        <input type="text" name="residencia" placeholder="Tu residencia"><br>
         <input type="password" name="user-password" placeholder="Tu contraseña"><br>
 
         <button>Enviar</button>
