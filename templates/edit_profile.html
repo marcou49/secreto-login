@@ -3,31 +3,51 @@
 
 
 {% block content %}
-<h3>Modificar perfíl</h3>
+<h1>Modificar perfíl</h1>
 
 <form method="post">
-    <p>
-        <strong>Tu nombre:</strong>
-        <input type="text" value="{{ user.name }}" name="profile-name">
-    </p>
 
-    <p>
-        <strong>Tu correo:</strong>
-        <input type="email" value="{{ user.email }}" name="profile-email">
-    </p>
+   <div class="form-row">
+    <div class="form-group col-md-6 p-3">
 
-    <h4>¿Modificar tu contraseña?</h4>
+        <h5>Tu datos</h5>
 
-    <p>
-        <strong>Tu antigua contraseña</strong>
-        <input type="password" name="old-password">
-    </p>
+    <div class="form-group">
+        <label>Tu nombre:</label>
+        <input type="text" value="{{ user.name }}" name="profile-name" class="form-control">
+    </div>
 
-    <p>
-        <strong>Tu nueva contraseña</strong>
-        <input type="password" name="new-password">
-    </p>
+     <div class="form-group">
+        <label>Tu correo:</label>
+        <input type="email" value="{{ user.email }}" name="profile-email" class="form-control">
+    </div>
 
-    <button>Modificar</button>
+    <div class="form-group">
+        <label>Tu residencia:</label>
+        <input type="text" value="{{ user.residencia }}" name="profile-residencia" class="form-control">
+    </div>
+
+    </div>
+
+
+    <div class="form-group col-md-6 p-3">
+
+        <h5>¿Cambiar contraseña?</h5>
+
+    <div class="form-group">
+        <label>Tu antigua contraseña:</label>
+         <input type="password" name="old-password" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label>Tu nueva contraseña:</label>
+         <input type="password" name="new-password" class="form-control">
+    </div>
+
+    </div>
+
+    <button class="btn btn-success">Modificar</button>
+
+
 </form>
 {% endblock content %}

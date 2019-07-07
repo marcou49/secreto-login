@@ -4,10 +4,10 @@
 
 <p>Usuario: {{ user.name }}</p>
 <p>email: {{ user.email }}</p>
-<p>Tu mejor puntuación: {{ user.intentos }}</p>
+<p>Residencia: {{user.residencia}}</p>
 
 
-<a href="/edit_profile">Editar Perfíl</a> | <a href="/delete_profile">Eliminar Perfíl</a> | <a href="/logout">Desconectarse </a>
-
+<a class="btn btn-primary" href="/edit_profile">Editar Perfíl</a> <a class="btn btn-primary" href="/delete_profile">Eliminar Perfíl</a>
+<a class="btn btn-primary" href="/logout">Desconectarse</a>
 
 {% endblock content %}

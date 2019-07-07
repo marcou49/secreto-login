@@ -2,34 +2,175 @@
 
 {% block content %}
 
-<h1>Bienvenido tu rincon secreto</h1>
-
 {% if user %}
 
-<p>{{user.ciudad}} </p>
+<div class="bg-light p-3">
+    <div class="container">
 
-<p>{{user.tiempo}} </p>
+      <div class="row">
 
-<p>la hora</p>
+          <div class="col-md-3 text-center ">
+            <img src="http://openweathermap.org/img/wn/{{data.weather[0].icon}}@2x.png">
+        </div>
 
 
-<a href="/cambiar-ciudad">¿Ya no vives en {{user.ciudad}} ?</a>
+          <div class="col-md-9 bg-white p-3">
 
-<p>tienes mensajes pendientes</p>
+            <p>Hola {{user.name}}, hoy es {{hoy}} y en {{user.residencia}}
+            actualmente el tiempo está con {{ data.weather[0].description }} y la temperatura es de {{ data.main.temp }}</p>
 
-<p>Consultar mensajes</p>
+            <p><a class="btn btn-info" href="/edit_profile">¿Ya no vives en {{user.residencia}} ?</a> </p>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+</div>
+
+
+
+
+{% if mensajes %}
+
+<hr style="display:block; border:none; height:20px"/>
+
+<div class="alert alert-warning" role="alert">
+     <span class="usuario_mensaje">{{user.name}} </span> tienes mensajes sin leer<br>
+     <a href="/mensajes">VER MENSAJES</a>
+</div>
+
+
+
+{% endif %}
+
+<a class="btn btn-success" href="/mandar">Mandar mensajes</a>
 
 {% else %}
 
-<p>Antes que nada, regístrate uuu</p>
+    <p>bienvenid@ a richardcasar.es</p>
 
-    <form method="post" action="/login">
-        <input type="text" name="user-name" placeholder="Tu nombre"><br>
-        <input type="email" name="user-email" placeholder="Tu email"><br>
-        <input type="text" name="residencia" placeholder="Tu residencia"><br>
-        <input type="password" name="user-password" placeholder="Tu contraseña"><br>
+    <p> Necesitas ingresar o crear una cuenta de usuario para poder disfrutar de nuestros servicios<p>
 
-        <button>Enviar</button>
-    </form>
+
+    {% if request.args.get('registro') %}
+        <div class="alert alert-danger" role="alert"> Parece que ya estás registrad@, pincha en el botón "Ya tengo cuenta" </div>
+    {% endif %}
+
+    {% if request.args.get('noregistro') %}
+        <div class="alert alert-danger" role="alert"> No existe ningún usuario con este email, prueba con otro o date de alta </div>
+    {% endif %}
+
+    {% if request.args.get('borrado') %}
+        <div class="alert alert-danger" role="alert"> Esta cuenta fue borrada, pónte en contacto con el administrador del sitio o date de alta con otro email </div>
+    {% endif %}
+
+    {% if request.args.get('error') %}
+        <div class="alert alert-danger" role="alert"> Algo fue mal amig@, contraseña equivocada</div>
+    {% endif %}
+
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#registro" aria-expanded="false" aria-controls="registro">
+            Registrarte
+        </button>
+
+        <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#ingresar" aria-expanded="false" aria-controls="ingreso">
+            Ya tengo cuenta
+        </button>
+
+    </p>
+
+
+    <div class="collapse" id="registro">
+
+        <div class="card card-body">
+
+          <form method="post" action="/login">
+
+
+              <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Tu nombre</label>
+                        <input type="text" name="user-name" class="form-control" >
+                    </div>
+                    <div class="form-group col-md-6">
+                      <div class="form-group">
+                        <label>Tu email</label>
+                        <input type="email" name="user-email" class="form-control" >
+                      </div>
+                    </div>
+              </div>
+
+              <div class="form-group">
+                <label >Contraseña</label>
+                <input type="password" name="user-password" class="form-control" >
+              </div>
+
+              <div class="form-group">
+                <label>Tu residencia</label>
+                <input type="text" name="residencia" class="form-control">
+              </div>
+
+              <button type="submit" class="btn btn-primary">Enviar</button>
+
+          </form>
+
+        </div>
+
+    </div>
+
+
+     <div class="collapse" id="ingresar">
+
+        <div class="card card-body">
+
+          <form method="post" action="/ingreso">
+
+
+              <div class="form-row">
+
+                    <div class="form-group col-md-6">
+                      <div class="form-group">
+                        <label for="user-email">Tu email</label>
+                        <input type="email" name="user-email" class="form-control" id="user-email">
+                      </div>
+                    </div>
+              </div>
+
+              <div class="form-group">
+                <label for="user-password">Contraseña</label>
+                <input type="password" name="user-password" class="form-control" id="user-password">
+              </div>
+
+
+              <button type="submit" class="btn btn-primary">Entrar</button>
+
+          </form>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {% endif %}
+
+
+
+
+
 {% endblock content %}

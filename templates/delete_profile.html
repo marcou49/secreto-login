@@ -6,10 +6,12 @@
 <p>{{user.name}}, ¿Realmente deseas eliminar tu perfíl ?</p>
 
     <form method="post" action="/delete_profile">
-        <button>Sí, eliminar</button>
+        <button type="button" class="btn btn-danger">Si, eliminar</button>
+        <a class="btn btn-success" href="/profile">No, fue un error</a>
     </form>
 
-<a href="/profile">No, fue un error</a>
+
+
 
 
 {% endblock content %}
